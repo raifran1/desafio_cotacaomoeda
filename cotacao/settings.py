@@ -50,7 +50,7 @@ ROOT_URLCONF = 'cotacao.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -70,8 +70,12 @@ WSGI_APPLICATION = 'cotacao.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': config('DB_NAME', default='cotacao'),
+        'USER': config('DB_USER', default='root'),
+        'PASSWORD': config('DB_PASSWORD', default='root'),
+        'HOST': config('DB_HOST', default='127.0.0.1'),
+        'OPTIONS': {'charset': 'utf8mb4'},
     }
 }
 
@@ -93,6 +97,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+SITE_ID = 1
+
+SITE_URL = config('SITE_URL', default='')
 
 LANGUAGE_CODE = 'pt-BR'
 
@@ -104,11 +111,27 @@ USE_L10N = True
 
 USE_TZ = True
 
+CORS_ORIGIN_ALLOW_ALL = True
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.2/howto/static-files/
+SECURE_REFERRER_POLICY = None
+
+X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
+
+STATIC_ROOT = config('STATIC_ROOT')
+MEDIA_ROOT = config('MEDIA_ROOT')
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
+
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'compressor.finders.CompressorFinder',
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
