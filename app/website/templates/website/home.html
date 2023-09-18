@@ -1,1 +1,97 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+    <link href="{% static 'css/home.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block js %}
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+
+{#    <script src="https://code.highcharts.com/highcharts.js"></script>#}
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <script type="text/javascript" defer>
+        window.onload = function() {
+          // Data retrieved https://en.wikipedia.org/wiki/List_of_cities_by_average_temperature
+          Highcharts.chart('container', {
+            chart: {
+              type: 'line'
+            },
+            title: {
+              text: ''
+            },
+            subtitle: {
+              text: ''
+            },
+            xAxis: {
+              categories: ['11/09', '12/09', '13/09', '14/09', '15/09']
+            },
+            yAxis: {
+              title: {
+                text: 'Cotação (1 USD)'
+              }
+            },
+            plotOptions: {
+              line: {
+                dataLabels: {
+                  enabled: true
+                },
+                enableMouseTracking: true
+              }
+            },
+            series: [
+              {
+                name: 'Euro',
+                data: [16.0, 18.2, 23.1, 27.9, 32.2],
+                color: '#3C7AB2',
+              },
+              {% comment %}{
+                name: 'Real',
+                data: [-2.9, -3.6, -0.6, 4.8, 10.2],
+                color: '#a2a100',
+              },
+              {
+                name: 'Iene',
+                data: [-3.9, -7, 1.6, 3.8, 40.2],
+                color: '#3d431e',
+              }{% endcomment %}
+            ]
+          });
+        };
+    </script>
+
+{% endblock %}
+
+{% block content %}
+    <div class="d-flex mt-5 flex-wrap-reverse justify-content-center">
+        <div class="col-lg-3 col-9 pb-lg-0">
+            <h4 class="text-center title-filtro mb-3">Filtrar por</h4>
+            <div class="mb-3">
+                <label for="initial-date" class="label color-green-theme">Data inicial</label>
+                <input type="date" name="initial-date" id="initial-date" class="form-control" />
+            </div>
+            <div class="mb-3">
+                <label for="end-date" class="label color-green-theme">Data final</label>
+                <input type="date" name="end-date" id="end-date" class="form-control" />
+            </div>
+            <div class="mb-3">
+                <label for="coin" class="label color-green-theme">Moeda</label>
+                <select name="coin" id="coin" class="form-select">
+                    <option value="1">Real</option>
+                    <option value="1">Euro</option>
+                    <option value="1">Iene</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <input type="submit" value="Filtrar" class="form-control btn btn-outline-green-theme" />
+            </div>
+        </div>
+        <div class="col-lg-7 col-11">
+            <figure class="highcharts-figure">
+                <div id="container"></div>
+            </figure>
+        </div>
+    </div>
+{% endblock content %}

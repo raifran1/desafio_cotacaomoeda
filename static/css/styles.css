@@ -2,13 +2,17 @@
     font-family: 'Montserrat', sans-serif;
 }
 
+.header {
+    background-color: #f8f8f8!important;
+}
+
 .title-header {
     font-size: 25px!important;
     font-weight: 700;
     color: #444;
 }
 
-.span-title{
+.color-green-theme{
     color: #1B6A5C!important;
 }
 

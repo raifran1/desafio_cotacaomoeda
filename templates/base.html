@@ -5,30 +5,38 @@
 <head>
     <meta charset="UTF-8">
     <title>CotaON</title>
-    <meta name="description" content="Encontre aqui as cotações entre as moedas Dólar, Euro, Yene e Real."/>
+    <meta name="description" content="Encontre aqui as cotações entre as moedas Dólar, Euro, Iene e Real."/>
     <link rel="canonical" href="{% url 'home' %}"/>
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <script src="{% static 'js/bootstrap.bundle.min.js' %}" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <link href="{% static 'css/fonts.css' %}" rel="stylesheet">
     <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+    {% block css %}
+    {% endblock %}
+
+    {% block js %}
+    {% endblock %}
 </head>
 <body>
-    <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+    <header class="d-flex flex-wrap justify-content-center py-3 mb-4 header">
         <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
-            <img src="{% static 'img/cotaon.png' %}" class="ml-5" width="120"  height="120"/>
-            <h3 class="title-header">COTA<span class="span-title">ON</span></h3>
+            <img src="{% static 'img/cotaon.png' %}" class="ml-5" width="120" height="120"/>
+            <h3 class="title-header">COTA<span class="color-green-theme">ON</span></h3>
         </a>
         <div class="d-flex align-items-center col-6 col-lg-3">
-            <h3 class="fs-2 title-header">Desenvolvido por <span class="span-title">Raifran Lucas</span></h3>
+            <h3 class="fs-2 title-header">Desenvolvido por <span class="color-green-theme">Raifran Lucas</span></h3>
         </div>
     </header>
-    <section class="content">
+    <section class="content pt-3">
         <div class="d-flex align-items-center col-12 justify-content-center">
             <h3 class="title">Faça a cotação online</h3>
         </div>
-        <div class="d-flex align-items-center col-12 justify-content-center option">
-            <h4 class="option-text">Dólar -> Euro | Real | Yene</h4>
+        <div class="d-flex align-items-center col-12 justify-content-center option mb-5">
+            <h4 class="option-text">Dólar -> Euro | Real | Iene</h4>
         </div>
+
+        {% block content %}
+        {% endblock content %}
 
     </section>
 
