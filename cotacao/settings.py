@@ -37,7 +37,8 @@ DJANGO_APPS = [
 
 MY_APPS = [
     'moeda',
-    'cotacao_moeda'
+    'cotacao_moeda',
+    'website',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + MY_APPS
