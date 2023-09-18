@@ -8,6 +8,7 @@ class Quotation(models.Model):
     class Meta:
         verbose_name = 'Cotação'
         verbose_name_plural = 'Cotações'
+        ordering = ['-date']
 
     def __str__(self):
         return f'{self.coin_base.name}'
