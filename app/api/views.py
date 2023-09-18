@@ -9,6 +9,18 @@ from cotacao_moeda.models import QuotationCoin
 from moeda.models import Coin
 from moeda.serializers import CoinSerializer
 
+NAMES_PORTUGUESE = {
+    'BRL': 'Real',
+    'EUR': 'Euro',
+    'USD': 'Dólar Americano',
+    'JPY': 'Iene Japonês',
+    'RUB': 'Rublo Russo',
+    'AUD': 'Dólar Australiano',
+    'CAD': 'Dólar Canadense',
+    'CNY': 'Yuan Chinês',
+    'MXN': 'Peso Mexicano',
+}
+
 
 class QuotationCoinViewSet(viewsets.ViewSet):
     def list(self, request, *args, **kwargs):
@@ -17,7 +29,7 @@ class QuotationCoinViewSet(viewsets.ViewSet):
         """
         last_date = datetime.datetime.now() - datetime.timedelta(days=7)
 
-        instances = QuotationCoin.objects.all().order_by('-quotation__date')
+        instances = QuotationCoin.objects.all().order_by('quotation__date')
 
         try:
             initial_date = datetime.datetime.strptime(
@@ -50,7 +62,14 @@ class QuotationCoinViewSet(viewsets.ViewSet):
             dic = {}
             if c.coin.acronym not in coin_repeat:
                 coin_repeat.append(c.coin.acronym)
+
+                try:
+                    name = NAMES_PORTUGUESE[c.coin.acronym]
+                except:
+                    name = c.coin.name
+
                 dic.update({
+                    'name': name,
                     'acronym': c.coin.acronym,
                     'symbol': c.coin.symbol
                 })

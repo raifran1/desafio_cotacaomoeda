@@ -23,57 +23,58 @@
               document.getElementById('load-graphic').setAttribute('class', 'd-none');
               document.getElementById('graphic').setAttribute('class', '');
 
-              Highcharts.chart('container', {
-                chart: {
-                  type: 'line'
-                },
-                title: {
-                  text: ''
-                },
-                subtitle: {
-                  text: ''
-                },
-                xAxis: {
-                  categories: [
-                    {% for q in quotations|slice:'::-1' %}'{{ q.date|date:'d/m' }}', {% endfor %}
-                  ]
-                },
-                yAxis: {
-                  title: {
-                    text: 'Cotação (1 USD)'
-                  }
-                },
-                plotOptions: {
-                  line: {
-                    dataLabels: {
-                      enabled: true
-                    },
-                    enableMouseTracking: true
-                  }
-                },
-                series: [
-                  {
-                    name: 'Real',
-                    data: [
-                      4.94,4.95,4.91,4.87,4.87
-                    ],
-                    color: '#a2a100',
-                  },
-                  {% comment %}
-                  {
-                    name: 'Euro',
-                    data: [16.0, 18.2, 23.1, 27.9, 32.2],
-                    color: '#3C7AB2',
-                  },
-                  {
-                    name: 'Iene',
-                    data: [-3.9, -7, 1.6, 3.8, 40.2],
-                    color: '#3d431e',
-                  }
-                  {% endcomment %}
-                ]
-              });
 
+              fetch('/api/quotationcoin-graphic/', {method: 'GET'})
+              .then(response => response.json())
+              .then((obj) => {
+                series_list = [];
+
+                obj['coins'].forEach((obj_coin) => {
+                  // filtra os valores de dados de acordo com o acronimo das siglas
+                  values = obj['graphic'].filter(val => (val['coin'] == obj_coin['acronym']));
+
+                  let values_list_cotation = [];
+                  values.forEach((val) => {
+                    values_list_cotation.push(val['data']['value'])
+                  });
+
+                  dict_serie = {
+                    'name': obj_coin['name'],
+                    'data': values_list_cotation
+                  };
+
+                  series_list.push(dict_serie)
+                });
+
+                Highcharts.chart('container', {
+                    chart: {
+                      type: 'line'
+                    },
+                    title: {
+                      text: ''
+                    },
+                    subtitle: {
+                      text: ''
+                    },
+                    xAxis: {
+                      categories: obj['dates']
+                    },
+                    yAxis: {
+                      title: {
+                        text: 'Cotação (1 USD)'
+                      }
+                    },
+                    plotOptions: {
+                      line: {
+                        dataLabels: {
+                          enabled: true
+                        },
+                        enableMouseTracking: true
+                      }
+                    },
+                    series: series_list
+                });
+              });
             }, 600);
 
 
