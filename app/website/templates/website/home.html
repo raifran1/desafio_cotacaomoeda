@@ -7,58 +7,76 @@
 
 {% block js %}
     <script src="https://code.highcharts.com/highcharts.js"></script>
-
-{#    <script src="https://code.highcharts.com/highcharts.js"></script>#}
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
     <script type="text/javascript" defer>
         window.onload = function() {
-          // Data retrieved https://en.wikipedia.org/wiki/List_of_cities_by_average_temperature
-          Highcharts.chart('container', {
-            chart: {
-              type: 'line'
-            },
-            title: {
-              text: ''
-            },
-            subtitle: {
-              text: ''
-            },
-            xAxis: {
-              categories: ['11/09', '12/09', '13/09', '14/09', '15/09']
-            },
-            yAxis: {
-              title: {
-                text: 'Cotação (1 USD)'
-              }
-            },
-            plotOptions: {
-              line: {
-                dataLabels: {
-                  enabled: true
+            document.getElementById('load-graphic').setAttribute('class', '');
+            document.getElementById('graphic').setAttribute('class', 'd-none');
+            document.getElementById('div-graphic').setAttribute('class', 'col-lg-7 col-11 d-flex justify-content-center align-items-center');
+
+            // Setando um timeout para habilitar o carregamento do grafico (efeito visual)
+            setTimeout(() => {
+              document.getElementById('div-graphic').setAttribute('class', 'col-lg-7 col-11');
+              document.getElementById('load-graphic').setAttribute('class', 'd-none');
+              document.getElementById('graphic').setAttribute('class', '');
+
+              Highcharts.chart('container', {
+                chart: {
+                  type: 'line'
                 },
-                enableMouseTracking: true
-              }
-            },
-            series: [
-              {
-                name: 'Euro',
-                data: [16.0, 18.2, 23.1, 27.9, 32.2],
-                color: '#3C7AB2',
-              },
-              {% comment %}{
-                name: 'Real',
-                data: [-2.9, -3.6, -0.6, 4.8, 10.2],
-                color: '#a2a100',
-              },
-              {
-                name: 'Iene',
-                data: [-3.9, -7, 1.6, 3.8, 40.2],
-                color: '#3d431e',
-              }{% endcomment %}
-            ]
-          });
+                title: {
+                  text: ''
+                },
+                subtitle: {
+                  text: ''
+                },
+                xAxis: {
+                  categories: [
+                    {% for q in quotations|slice:'::-1' %}'{{ q.date|date:'d/m' }}', {% endfor %}
+                  ]
+                },
+                yAxis: {
+                  title: {
+                    text: 'Cotação (1 USD)'
+                  }
+                },
+                plotOptions: {
+                  line: {
+                    dataLabels: {
+                      enabled: true
+                    },
+                    enableMouseTracking: true
+                  }
+                },
+                series: [
+                  {
+                    name: 'Real',
+                    data: [
+                      4.94,4.95,4.91,4.87,4.87
+                    ],
+                    color: '#a2a100',
+                  },
+                  {% comment %}
+                  {
+                    name: 'Euro',
+                    data: [16.0, 18.2, 23.1, 27.9, 32.2],
+                    color: '#3C7AB2',
+                  },
+                  {
+                    name: 'Iene',
+                    data: [-3.9, -7, 1.6, 3.8, 40.2],
+                    color: '#3d431e',
+                  }
+                  {% endcomment %}
+                ]
+              });
+
+            }, 600);
+
+
         };
     </script>
 
@@ -84,14 +102,26 @@
                     <option value="1">Iene</option>
                 </select>
             </div>
-            <div class="mb-3">
-                <input type="submit" value="Filtrar" class="form-control btn btn-outline-green-theme" />
+            <div class="mb-3 text-center">
+{#                <input type="submit" value="Filtrar" class="form-control btn btn-outline-green-theme" />#}
+                <button class="btn btn-outline-green-theme" type="button">
+                  <span class="spinner-grow spinner-grow-sm d-none" aria-hidden="true"></span>
+                  <span role="status">Filtrar</span>
+                </button>
             </div>
         </div>
-        <div class="col-lg-7 col-11">
-            <figure class="highcharts-figure">
-                <div id="container"></div>
-            </figure>
+        <div class="col-lg-7 col-11" id="div-graphic">
+            <div id="load-graphic" class="">
+                <span class="spinner-grow spinner-grow-sm" aria-hidden="true"></span>
+                <span>Carregando...</span>
+            </div>
+
+            <div id="graphic" class="">
+                <figure class="highcharts-figure">
+                    <div id="container"></div>
+                </figure>
+            </div>
+
         </div>
     </div>
 {% endblock content %}
