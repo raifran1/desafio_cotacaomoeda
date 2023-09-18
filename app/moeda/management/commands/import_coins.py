@@ -7,7 +7,7 @@ from moeda.models import Coin
 
 
 class Command(BaseCommand):
-    help = 'Comando para cadastrar as moedas Euro, Dollar e Yene'
+    help = 'Comando para cadastrar as moedas Euro, Dollar e Iene'
 
     def handle(self, *args, **kwargs):
         data = requests.get('https://api.vatcomply.com/currencies')
@@ -17,5 +17,6 @@ class Command(BaseCommand):
             coin = coins_database[key]
             Coin.objects.get_or_create(
                 name=coin.get('name'),
-                acronym=coin.get('symbol')
+                symbol=coin.get('symbol'),
+                acronym=key
             )
