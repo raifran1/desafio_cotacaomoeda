@@ -17,7 +17,7 @@ class Quotation(models.Model):
 class QuotationCoin(models.Model):
     quotation = models.ForeignKey('cotacao_moeda.Quotation', on_delete=models.CASCADE, verbose_name='Cotação', null=True)
     coin = models.ForeignKey('moeda.Coin', verbose_name='Moeda', on_delete=models.CASCADE)
-    value = models.DecimalField(verbose_name='Valor', max_digits=10, decimal_places=2)
+    value = models.DecimalField(verbose_name='Valor', max_digits=10, decimal_places=4)
 
     class Meta:
         verbose_name = 'Moeda cotação'
