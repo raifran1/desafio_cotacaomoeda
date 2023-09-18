@@ -1,0 +1,29 @@
+* {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.title-header {
+    font-size: 25px!important;
+    font-weight: 700;
+    color: #444;
+}
+
+.span-title{
+    color: #1B6A5C!important;
+}
+
+.title {
+    font-size: 25px!important;
+    font-weight: 700;
+    color: #444;
+}
+
+.option-text {
+    font-size: 25px!important;
+    font-weight: 700;
+    color: #fff;
+    padding: 7px;
+    background-color: #1B6A5C;
+    border-radius: 10px;
+
+}
