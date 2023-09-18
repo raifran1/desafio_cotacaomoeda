@@ -26,16 +26,16 @@ def update_coins_cotation(request):
             dates.append(day)
 
     for date in dates:
-        data = requests.get(f'https://api.vatcomply.com/rates?base=USD&date={date.date()}')
-        rates = json.loads(data.text)
-
         coin_base = Coin.objects.get(acronym='USD')
-
         obj, create = Quotation.objects.get_or_create(
             coin_base=coin_base,
             date=date
         )
+
         if create:
+            data = requests.get(f'https://api.vatcomply.com/rates?base=USD&date={date.date()}')
+            rates = json.loads(data.text)
+
             for key in rates.get('rates'):
                 QuotationCoin.objects.get_or_create(
                     quotation=obj,
