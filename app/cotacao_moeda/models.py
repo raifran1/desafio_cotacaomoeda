@@ -10,10 +10,11 @@ class Quotation(models.Model):
         verbose_name_plural = 'Cotações'
 
     def __str__(self):
-        return self.coin_base.name
+        return f'{self.coin_base.name}'
 
 
 class QuotationCoin(models.Model):
+    quotation = models.ForeignKey('cotacao_moeda.Quotation', on_delete=models.CASCADE, verbose_name='Cotação', null=True)
     coin = models.ForeignKey('moeda.Coin', verbose_name='Moeda', on_delete=models.CASCADE)
     value = models.DecimalField(verbose_name='Valor', max_digits=10, decimal_places=2)
 
