@@ -10,76 +10,7 @@
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-
-    <script type="text/javascript" defer>
-        window.onload = function() {
-            document.getElementById('load-graphic').setAttribute('class', '');
-            document.getElementById('graphic').setAttribute('class', 'd-none');
-            document.getElementById('div-graphic').setAttribute('class', 'col-lg-7 col-11 d-flex justify-content-center align-items-center');
-
-            // Setando um timeout para habilitar o carregamento do grafico (efeito visual)
-            setTimeout(() => {
-              document.getElementById('div-graphic').setAttribute('class', 'col-lg-7 col-11');
-              document.getElementById('load-graphic').setAttribute('class', 'd-none');
-              document.getElementById('graphic').setAttribute('class', '');
-
-
-              fetch('/api/quotationcoin-graphic/', {method: 'GET'})
-              .then(response => response.json())
-              .then((obj) => {
-                series_list = [];
-
-                obj['coins'].forEach((obj_coin) => {
-                  // filtra os valores de dados de acordo com o acronimo das siglas
-                  values = obj['graphic'].filter(val => (val['coin'] == obj_coin['acronym']));
-
-                  let values_list_cotation = [];
-                  values.forEach((val) => {
-                    values_list_cotation.push(val['data']['value'])
-                  });
-
-                  dict_serie = {
-                    'name': obj_coin['name'],
-                    'data': values_list_cotation
-                  };
-
-                  series_list.push(dict_serie)
-                });
-
-                Highcharts.chart('container', {
-                    chart: {
-                      type: 'line'
-                    },
-                    title: {
-                      text: ''
-                    },
-                    subtitle: {
-                      text: ''
-                    },
-                    xAxis: {
-                      categories: obj['dates']
-                    },
-                    yAxis: {
-                      title: {
-                        text: 'Cotação (1 USD)'
-                      }
-                    },
-                    plotOptions: {
-                      line: {
-                        dataLabels: {
-                          enabled: true
-                        },
-                        enableMouseTracking: true
-                      }
-                    },
-                    series: series_list
-                });
-              });
-            }, 600);
-
-
-        };
-    </script>
+    <script type="text/javascript" src="{% static 'js/graphic.js' %}" defer></script>
 
 {% endblock %}
 
@@ -98,26 +29,26 @@
             <div class="mb-3">
                 <label for="coin" class="label color-green-theme">Moeda</label>
                 <select name="coin" id="coin" class="form-select">
-                    <option value="1">Real</option>
-                    <option value="1">Euro</option>
-                    <option value="1">Iene</option>
+                    <option value="BRL">Real</option>
+                    <option value="EUR">Euro</option>
+                    <option value="JPY">Iene</option>
                 </select>
             </div>
             <div class="mb-3 text-center">
 {#                <input type="submit" value="Filtrar" class="form-control btn btn-outline-green-theme" />#}
-                <button class="btn btn-outline-green-theme" type="button">
-                  <span class="spinner-grow spinner-grow-sm d-none" aria-hidden="true"></span>
+                <button class="btn btn-outline-green-theme" type="button" id="filtro">
+                  <span class="spinner-grow spinner-grow-sm d-none" aria-hidden="true" id="loading-filter"></span>
                   <span role="status">Filtrar</span>
                 </button>
             </div>
         </div>
-        <div class="col-lg-7 col-11" id="div-graphic">
+        <div class="col-lg-7 col-11 d-flex justify-content-center align-items-center" id="div-graphic">
             <div id="load-graphic" class="">
                 <span class="spinner-grow spinner-grow-sm" aria-hidden="true"></span>
                 <span>Carregando...</span>
             </div>
 
-            <div id="graphic" class="">
+            <div id="graphic" class="d-none">
                 <figure class="highcharts-figure">
                     <div id="container"></div>
                 </figure>
