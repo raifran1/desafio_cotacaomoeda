@@ -27,17 +27,28 @@ class QuotationCoinViewSet(viewsets.ViewSet):
         """
         Retornando listagem de cotações baseado nas informações enviadas.
         """
-        last_date = datetime.datetime.now() - datetime.timedelta(days=7)
 
         instances = QuotationCoin.objects.all().order_by('quotation__date')
 
         try:
-            initial_date = datetime.datetime.strptime(
-                request.GET.get('initial_date', str(last_date.date())), '%Y-%m-%d'
-            )
-            end_date = datetime.datetime.strptime(
-                request.GET.get('end_date', str(datetime.datetime.now().date().strftime('%Y-%m-%d'))), '%Y-%m-%d'
-            )
+            initial = datetime.datetime.now() - datetime.timedelta(days=7)
+            end = str(datetime.datetime.now().date().strftime('%Y-%m-%d'))
+
+            if 'initial_date' in request.GET:
+                initial = request.GET.get('initial_date', initial)
+            elif 'end_date' in request.GET:
+                initial = (datetime.datetime.strptime(request.GET.get('end_date', end), '%Y-%m-%d') - datetime.timedelta(days=7)).date()
+
+            if 'end_date' in request.GET:
+                end = request.GET.get('end_date', end)
+            elif 'initial_date' in request.GET:
+                end = (datetime.datetime.strptime(request.GET.get('initial_date', initial), '%Y-%m-%d') + datetime.timedelta(days=7)).date()
+
+            initial_date = datetime.datetime.strptime(str(initial), '%Y-%m-%d')
+            end_date = datetime.datetime.strptime(str(end), '%Y-%m-%d')
+
+            if initial_date > end_date:
+                return Response({'erro': 'A data inicial informada deve ser menor que a data final'})
         except ValueError:
             return Response({'erro': 'Use o formato AAAA-MM-DD'})
 
