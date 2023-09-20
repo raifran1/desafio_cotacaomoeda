@@ -1,3 +1,6 @@
+
+
+
 window.onload = function() {
   function loadChart(initial_date=null, end_date=null, coin='BRL', initial=false){
     // Função que irá montar o gráfico
@@ -45,13 +48,14 @@ window.onload = function() {
       series_list = [];
 
       obj['coins'].forEach((obj_coin) => {
+        let values_list_cotation = [];
+
         // filtra os valores de dados de acordo com o acronimo das siglas
         values = obj['graphic'].filter(val => (val['coin'] == obj_coin['acronym']));
 
-        let values_list_cotation = [];
         values.forEach((val) => {
           // monta uma lista dos valores que persiste na mesma ordenação das datas enviadas via sistema
-          values_list_cotation.push(val['data']['value'])
+          values_list_cotation.push(val['data']['value']);
         });
 
         // Dicionário com um obj da serie de elementos possiveis para visualização no gráfico
@@ -133,4 +137,9 @@ window.onload = function() {
 
   // capturar evento do click no botão do filtro
   document.getElementById("filtro").addEventListener("click", filtro, false);
+
+
+  function changeDtInitial(){
+
+  }
 };
