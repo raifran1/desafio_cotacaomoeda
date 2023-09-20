@@ -11,17 +11,17 @@ window.onload = function() {
 
     if (initialDate){
       if (params == ''){
-        params += '?initial_date=' + initial_date
+        params += '?initial_date=' + initialDate
       } else {
-        params += '&initial_date=' + initial_date
+        params += '&initial_date=' + initialDate
       }
     }
 
     if (endDate){
       if (params == ''){
-        params += '?end_date=' + end_date
+        params += '?end_date=' + endDate
       } else {
-        params += '&end_date=' + end_date
+        params += '&end_date=' + endDate
       }
     }
 
@@ -133,13 +133,19 @@ window.onload = function() {
     // captura de informações os campos inputs
 
     //Nota: uso do jQuery em especifico para capturar a informação da data do datepicker
+    let initialDate = null;
     let initialDateVal = $('#initial-date').datepicker().value();
-    let formatInitialDateList = initialDateVal.split('/');
-    let initialDate = formatInitialDateList[2] + '-' + formatInitialDateList[1] + '-' + formatInitialDateList[0];
+    if (initialDateVal){
+      let formatInitialDateList = initialDateVal.split('/');
+      initialDate = formatInitialDateList[2] + '-' + formatInitialDateList[1] + '-' + formatInitialDateList[0];
+    }
 
+    let endDate = null;
     let endDateVal = $('#end-date').datepicker().value();
-    let formatEndDateList = endDateVal.split('/');
-    let endDate = formatEndDateList[2] + '-' + formatEndDateList[1] + '-' + formatEndDateList[0];
+    if (endDateVal){
+      let formatEndDateList = endDateVal.split('/');
+      endDate = formatEndDateList[2] + '-' + formatEndDateList[1] + '-' + formatEndDateList[0];
+    }
 
     let coin = document.getElementById('coin').value;
 
