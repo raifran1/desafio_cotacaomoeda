@@ -20,11 +20,11 @@
             <h4 class="text-center title-filtro mb-3">Filtrar por</h4>
             <div class="mb-3">
                 <label for="initial-date" class="label color-green-theme">Data inicial</label>
-                <input type="date" name="initial-date" id="initial-date" class="form-control" />
+                <input type="date" name="initial-date" id="initial-date" class="form-control" max="{% now 'Y-m-d' %}" />
             </div>
             <div class="mb-3">
                 <label for="end-date" class="label color-green-theme">Data final</label>
-                <input type="date" name="end-date" id="end-date" class="form-control" />
+                <input type="date" name="end-date" id="end-date" class="form-control" max="{% now 'Y-m-d' %}" />
             </div>
             <div class="mb-3">
                 <label for="coin" class="label color-green-theme">Moeda</label>
