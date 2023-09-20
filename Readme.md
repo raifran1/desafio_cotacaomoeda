@@ -27,3 +27,37 @@ respeitando as seguintes especificações:
 * Deploy no heroku ou em outro servidor de sua preferência.
 * Criar uma api para realizar leitura das cotações persistidas no banco de dados.
 ```
+
+
+## Sistema
+### Frontend 
+```
+Foi utilizado um frontend integrado com o django usando o framework bootstrap para montagem do layout, teve o uso de javascript
+para carregar dados da api do próprio sistema e gerar o gráfico do Highcharts. Nos filtros foi usado a biblioteca datepicker 
+e jQuery e Javascript para manipulação das regras de negócio de apresentação das datas.
+```
+
+- Para modelagem do frontend foi feito um esboço no figma ```https://www.figma.com/file/NlbN3m4fB46e7hEZOlvSje/CotaON?type=design&node-id=0%3A1&mode=design&t=dmyH9iqJmCxPLRTS-1```
+
+### Backend
+```
+Foi utilizado Python e Django como a base do sistema, MySQL como banco de dados do sistema para persistir os dados, Django Rest Framework para API
+e por fim a workdays para ajuda no calculo de dias úteis por padrão no carregamento do gráfico.
+```
+
+- Para modelagem do banco de dados foi feito um esboço no Diagrams ```https://drive.google.com/file/d/1aNlHnfQf_zfXjdd6eaiRiBV33jjy7Eh9/view?usp=sharing```
+
+- Banco de dados: é persistido o cadastro de todas as moedas, e todas as suas cotações separado por data.
+
+- Scripts: Foi-se criado scripts no manage do django para auxiliar na população do banco de dados e atualização do mesmo. Sendo os dois ```python manage.py import_coins``` esse comando importará todas as moedas, siglas e simbolos e persistirá em banco de dados, e ```python manage.py import_cotation``` importa a cotação do dia, segundo documentação do vatcomply a mesma atualiza às 11h (Horário de Brasília), porém esse comando não é obrigatoriamente necessária sua execução via cron ou algo agendado pois o sistema foi feito para se auto alimentar e persistir de acordo com o uso e filtros feitos pelo usuário no frontend ou API.
+
+- API 
+  - Link da documentação ```https://documenter.getpostman.com/view/6751701/2s9YCARAgj```
+
+  - ```https://cotaon.raifranlucas.dev/api/coins/```: lista todas as moedas persistidas em banco de dados
+  - ```https://cotaon.raifranlucas.dev/api/quotationcoin-graphic/```: lista todas as cotações em um período e moeda específica, por padrão ele retorna as cotações dos últimos 5 dias e o Real Brasileiro;
+    - initial_date (aaaa-mm-dd): captura a data inicial que a API deve utilizar para retornar os dados
+    - end_date (aaaa-mm-dd): captura a data final que a API deve utilizar para retornar os dados
+    - coin_acronym: moedas que a api pode retornar, para isso é usado a sigla da moeda (BRL) nesse filtro. Também é possivel carregar multiplas moedas passando elas separado por virgula (BRL,USD)
+  
+
