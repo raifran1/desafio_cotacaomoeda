@@ -12,6 +12,13 @@
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
     <script type="text/javascript" src="{% static 'js/graphic.js' %}" defer></script>
 
+{#    DATEPICKER   #}
+{#    // datepicker -> biblioteca requer jQuery#}
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://unpkg.com/gijgo@1.9.14/js/gijgo.min.js" type="text/javascript"></script>
+    <link href="https://unpkg.com/gijgo@1.9.14/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="{% static 'js/dt_manipulation.js' %}" defer></script>
+
 {% endblock %}
 
 {% block content %}
@@ -20,11 +27,14 @@
             <h4 class="text-center title-filtro mb-3">Filtrar por</h4>
             <div class="mb-3">
                 <label for="initial-date" class="label color-green-theme">Data inicial</label>
-                <input type="date" name="initial-date" id="initial-date" class="form-control" max="{% now 'Y-m-d' %}" />
+                <input id="initial-date" />
+
+{#                <input type="date" name="initial-date" id="initial-date" class="form-control" max="{% now 'Y-m-d' %}" />#}
             </div>
             <div class="mb-3">
                 <label for="end-date" class="label color-green-theme">Data final</label>
-                <input type="date" name="end-date" id="end-date" class="form-control" max="{% now 'Y-m-d' %}" />
+                <input id="end-date" />
+{#                <input type="date" name="end-date" id="end-date" class="form-control" max="{% now 'Y-m-d' %}" />#}
             </div>
             <div class="mb-3">
                 <label for="coin" class="label color-green-theme">Moeda</label>

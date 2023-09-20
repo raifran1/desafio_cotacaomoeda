@@ -50,7 +50,7 @@ class QuotationCoinViewSet(viewsets.ViewSet):
             if initial_date > end_date:
                 return Response({'erro': 'A data inicial informada deve ser menor que a data final'})
         except ValueError:
-            return Response({'erro': 'Use o formato AAAA-MM-DD'})
+            return Response({'erro': 'Use o formato AAAA-MM-DD'}, status=400)
 
         # vai enviar um get para atualizar o banco de dados
         requests.get(f'{settings.SITE_URL}/update-cotation/?initial_date={initial_date.date()}&end_date={end_date.date()}')
