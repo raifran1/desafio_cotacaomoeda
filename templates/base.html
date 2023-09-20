@@ -4,6 +4,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="geo.country" content="BR"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
     <title>CotaON</title>
     <meta name="description" content="Encontre aqui as cotações entre as moedas Dólar, Euro, Iene e Real."/>
     <link rel="canonical" href="{% url 'home' %}"/>
@@ -20,10 +23,10 @@
 <body>
     <header class="d-flex flex-wrap justify-content-center py-3 mb-4 header">
         <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
-            <img src="{% static 'img/cotaon.png' %}" class="ml-5" width="120" height="120"/>
+            <img src="{% static 'img/cotaon.png' %}" class="ml-5 logo" width="120" height="120"/>
             <h3 class="title-header">COTA<span class="color-green-theme">ON</span></h3>
         </a>
-        <div class="d-flex align-items-center col-6 col-lg-3">
+        <div class="d-flex align-items-center justify-content-center col-12 col-lg-3">
             <h3 class="fs-2 title-header">Desenvolvido por <span class="color-green-theme">Raifran Lucas</span></h3>
         </div>
     </header>

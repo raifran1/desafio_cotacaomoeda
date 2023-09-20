@@ -68,3 +68,10 @@
     --bs-btn-disabled-border-color: #1B6A5C;
     --bs-gradient: none;
 }
+
+
+@media (max-width: 425px) {
+    .title-filtro, .filter-label {
+        font-size: 18px !important;
+    }
+}

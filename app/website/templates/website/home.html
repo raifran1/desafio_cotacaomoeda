@@ -24,20 +24,20 @@
 {% block content %}
     <div class="d-flex mt-5 flex-wrap-reverse justify-content-center">
         <div class="col-lg-3 col-9 pb-lg-0">
-            <h4 class="text-center title-filtro mb-3">Filtrar por</h4>
+            <h4 class="text-center title-filtro mb-3 mt-md-0 mt-5">Filtrar por</h4>
             <div class="mb-3">
-                <label for="initial-date" class="label color-green-theme">Data inicial</label>
+                <label for="initial-date" class="label color-green-theme filter-label">Data inicial</label>
                 <input id="initial-date" />
 
 {#                <input type="date" name="initial-date" id="initial-date" class="form-control" max="{% now 'Y-m-d' %}" />#}
             </div>
             <div class="mb-3">
-                <label for="end-date" class="label color-green-theme">Data final</label>
+                <label for="end-date" class="label color-green-theme filter-label">Data final</label>
                 <input id="end-date" />
 {#                <input type="date" name="end-date" id="end-date" class="form-control" max="{% now 'Y-m-d' %}" />#}
             </div>
             <div class="mb-3">
-                <label for="coin" class="label color-green-theme">Moeda</label>
+                <label for="coin" class="label color-green-theme filter-label">Moeda</label>
                 <select name="coin" id="coin" class="form-select">
                     <option value="BRL">Real</option>
                     <option value="EUR">Euro</option>
