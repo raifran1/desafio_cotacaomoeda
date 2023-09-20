@@ -1,5 +1,5 @@
 import datetime
-
+from workadays import workdays as wd
 import requests
 from django.conf import settings
 from rest_framework import viewsets
@@ -31,7 +31,7 @@ class QuotationCoinViewSet(viewsets.ViewSet):
         instances = QuotationCoin.objects.all().order_by('quotation__date')
 
         try:
-            initial = datetime.datetime.now() - datetime.timedelta(days=7)
+            initial = wd.workdays(datetime.datetime.now(), -4, country=None)
             end = str(datetime.datetime.now().date().strftime('%Y-%m-%d'))
 
             if 'initial_date' in request.GET:
