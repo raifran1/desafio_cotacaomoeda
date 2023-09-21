@@ -1,9 +1,12 @@
+import datetime
+
 from django.db import models
 
 
 class Quotation(models.Model):
     coin_base = models.ForeignKey('moeda.Coin', verbose_name='Moeda Base', on_delete=models.CASCADE)
     date = models.DateField(verbose_name='Data', auto_now=False, auto_now_add=False)
+    time = models.TimeField(default=datetime.time(), verbose_name='Última atualização')
 
     class Meta:
         verbose_name = 'Cotação'
@@ -12,6 +15,11 @@ class Quotation(models.Model):
 
     def __str__(self):
         return f'{self.coin_base.name}'
+
+    def update(self, **kwargs):
+        for attr, value in kwargs.items():
+            setattr(self, attr, value)
+        self.save()
 
 
 class QuotationCoin(models.Model):
@@ -25,3 +33,8 @@ class QuotationCoin(models.Model):
 
     def __str__(self):
         return self.coin.name
+
+    def update(self, **kwargs):
+        for attr, value in kwargs.items():
+            setattr(self, attr, value)
+        self.save()

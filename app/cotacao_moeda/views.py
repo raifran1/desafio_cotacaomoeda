@@ -27,20 +27,34 @@ def update_coins_cotation(request):
 
     for date in dates:
         coin_base = Coin.objects.get(acronym='USD')
+        time_obj = datetime.datetime.strptime('13:00', '%H:%M')
+
         obj, create = Quotation.objects.get_or_create(
             coin_base=coin_base,
-            date=date
+            date=date,
         )
 
-        if create:
+        update = False
+        if not create:
+            if obj.time != time_obj:
+                obj.time = time_obj
+                obj.save()
+                update = True
+
+        if create or update:
             data = requests.get(f'https://api.vatcomply.com/rates?base=USD&date={date.date()}')
             rates = json.loads(data.text)
 
             for key in rates.get('rates'):
-                QuotationCoin.objects.get_or_create(
+                quotation, create = QuotationCoin.objects.get_or_create(
                     quotation=obj,
                     coin=Coin.objects.get(acronym=key),
                     value=rates.get('rates')[key],
                 )
+
+            if rates.get('date') == obj.date:
+                for key in rates.get('rates'):
+                    quotation.value = rates.get('rates')[key]
+                    quotation.save()
 
     return JsonResponse(data={'detail': 'ok'})
