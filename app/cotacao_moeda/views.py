@@ -27,7 +27,8 @@ def update_coins_cotation(request):
 
     for date in dates:
         coin_base = Coin.objects.get(acronym='USD')
-        time_obj = datetime.datetime.strptime('13:00', '%H:%M')
+        time_obj = datetime.datetime.strptime('14:00', '%H:%M')
+        time_now = datetime.datetime.now().time()
 
         obj, create = Quotation.objects.get_or_create(
             coin_base=coin_base,
@@ -36,7 +37,7 @@ def update_coins_cotation(request):
 
         update = False
         if not create:
-            if obj.time != time_obj:
+            if time_obj.time() >= time_now:
                 obj.time = time_obj
                 obj.save()
                 update = True
@@ -47,7 +48,7 @@ def update_coins_cotation(request):
 
             if not update:
                 for key in rates.get('rates'):
-                    quotation, create = QuotationCoin.objects.get_or_create(
+                    QuotationCoin.objects.get_or_create(
                         quotation=obj,
                         coin=Coin.objects.get(acronym=key),
                         value=rates.get('rates')[key],
