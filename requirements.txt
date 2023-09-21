@@ -2,8 +2,10 @@ asgiref==3.7.2
 certifi==2023.7.22
 charset-normalizer==3.2.0
 Django==3.2.21
+django-3-jet==1.0.8
 djangorestframework==3.14.0
 idna==3.4
+jet-sidebar==0.2.7
 mysqlclient==2.2.0
 python-dateutil==2.8.2
 python-decouple==3.8

@@ -1,0 +1,14 @@
+{% extends 'admin/base_site.html' %}
+{% load static %}
+
+{% block extrastyle %}
+     {% if request.user.is_authenticated %}
+          <a style='display: none' id="USERNAME">{{request.user.username}}</a>
+     {% endif %}
+    <link href="{% static 'admin/css/jetcustom_admin.css' %}" rel="stylesheet">
+{% endblock %}
+
+
+{% block extrahead %}
+    <link href="{% static 'admin/css/jetcustom_admin.css' %}" rel="stylesheet">
+{% endblock %}

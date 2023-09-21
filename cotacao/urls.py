@@ -17,8 +17,13 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
+    path('jet/', include('jet.urls', 'jet')),
     path('admin/', admin.site.urls),
     path('api/', include('api.urls')),
     path('', include('website.urls')),
     path('', include('cotacao_moeda.urls')),
 ]
+
+admin.site.site_header = 'CotaON'
+admin.site.index_title = 'CotaON'
+admin.site.site_title = 'Sistema de Gerenciamento de Conteúdo'

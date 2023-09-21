@@ -26,6 +26,11 @@ INTERNAL_IPS = ['127.0.0.1', 'localhost:3000']
 
 # Application definition
 
+UI_ADMIN = [
+    'jet_sidebar',
+    'jet'
+]
+
 DJANGO_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -42,7 +47,7 @@ MY_APPS = [
     'api',
 ]
 
-INSTALLED_APPS = DJANGO_APPS + MY_APPS
+INSTALLED_APPS = UI_ADMIN + DJANGO_APPS + MY_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -145,3 +150,22 @@ STATICFILES_FINDERS = [
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+SID_TITLE_MENU = False
+SID_APP_ICONS = {
+    'auth': {
+        'class_icon': 'fas fa-cog',
+    },
+    'cotacao_moeda': {
+        'class_icon': 'fas fa-chart-line',
+    },
+    'moeda': {
+        'class_icon': 'fas fa-coins',
+    },
+}
+
+
+HIGHLIGHT_LINKS = [
+    {'name': 'API Docs', 'url': 'https://documenter.getpostman.com/view/6751701/2s9YCARAgj', 'class_icon': 'fas fa-file', 'style': 'margin-left: 4px; margin-right: 7px', 'perms': ['*']},
+]
