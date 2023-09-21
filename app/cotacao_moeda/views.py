@@ -45,16 +45,25 @@ def update_coins_cotation(request):
             data = requests.get(f'https://api.vatcomply.com/rates?base=USD&date={date.date()}')
             rates = json.loads(data.text)
 
-            for key in rates.get('rates'):
-                quotation, create = QuotationCoin.objects.get_or_create(
-                    quotation=obj,
-                    coin=Coin.objects.get(acronym=key),
-                    value=rates.get('rates')[key],
-                )
-
-            if rates.get('date') == obj.date:
+            if not update:
                 for key in rates.get('rates'):
-                    quotation.value = rates.get('rates')[key]
-                    quotation.save()
+                    quotation, create = QuotationCoin.objects.get_or_create(
+                        quotation=obj,
+                        coin=Coin.objects.get(acronym=key),
+                        value=rates.get('rates')[key],
+                    )
+            else:
+                if rates.get('date') == obj.date:
+                    for key in rates.get('rates'):
+                        try:
+                            quotation = QuotationCoin.objects.get(
+                                quotation=obj,
+                                coin=Coin.objects.get(acronym=key),
+                                value=rates.get('rates')[key],
+                            )
+                            quotation.value = rates.get('rates')[key]
+                            quotation.save()
+                        except Exception as e:
+                            print(e)
 
     return JsonResponse(data={'detail': 'ok'})
