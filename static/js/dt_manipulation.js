@@ -31,7 +31,7 @@ $('#initial-date').change(function () {
   let iterouMes = false;
 
   // verifica e calcula qual seria a data limite para o campo de data final do formulário
-  for(let i=0; i <= 5; i++){
+  for(let i=0; i <= 4; i++){
 
     // iterador de mês para acrescentar quando a data ultrapassar certas regras de dias do mês
     if (lastDateOfMonth == 28 && !iterouMes && day == 28){
