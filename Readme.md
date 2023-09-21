@@ -30,6 +30,16 @@ respeitando as seguintes especificações:
 
 
 ## Sistema
+### Admin
+```
+O sistema do admin foi customizado utilizando o django-jet, e com umas customizações específicas a mais como jet-sidebar 
+que é uma biblioteca de autoria minha que usa o django-jet como base. Junto a ela coloquei dentro da aplicação um arquivo css e html,
+que é uma atualização desse front que está sendo trabalhada ainda para ser lançada em versão futura do jet-sidebar.
+
+url da biblioteca: https://pypi.org/project/jet-sidebar/
+gihub: https://github.com/raifran1/jet-sidebar
+```
+
 ### Frontend 
 ```
 Foi utilizado um frontend integrado com o django usando o framework bootstrap para montagem do layout, teve o uso de javascript
