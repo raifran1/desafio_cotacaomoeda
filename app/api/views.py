@@ -48,7 +48,7 @@ class QuotationCoinViewSet(viewsets.ViewSet):
             end_date = datetime.datetime.strptime(str(end), '%Y-%m-%d')
 
             if initial_date > end_date:
-                return Response({'erro': 'A data inicial informada deve ser menor que a data final'})
+                return Response({'erro': 'A data inicial informada deve ser menor que a data final'}, status=400)
         except ValueError:
             return Response({'erro': 'Use o formato AAAA-MM-DD'}, status=400)
 
